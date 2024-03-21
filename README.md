@@ -5,3 +5,7 @@
 2. used getElementByID and querySelector.
 
 3. used lastElementChild
+
+4. used createElement
+
+5. used appendChild
