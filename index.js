@@ -1,12 +1,12 @@
 // 1. Cache at least one element using selectElementById.
 const firstName = document.getElementById('firstName');
-console.log('firstName');
+console.log(firstName);
 
 // firstName.setAttribute('placeholder', 'Enter your first name');
 
 // 2. Cache at least one element using querySelector or querySelectorAll.
 const registerButton = document.querySelector('.btn');
-console.log('registerButton');
+console.log(registerButton);
 registerButton.style.backgroundColor = 'green';
 
 
@@ -28,3 +28,17 @@ step1.innerText = 'One step closer to a healthier life!'
 // 6. Use appendChild and/or prepend to add new elements to the DOM.
 const parentElement = document.querySelector('.container');
 parentElement.appendChild(step1);
+
+//7. Modify at least one attribute of an element in response to user interaction.
+const button = document.querySelector('.btn');
+
+function handleClick(evt) {
+    // console.log(evt);
+    // evt.preventDefault()
+    alert(`Thanks for registering!`);
+}
+
+button.addEventListener('click', handleClick);
+
+//8. Register at least two different event listeners and create the associated event handler functions.
+

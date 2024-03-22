@@ -9,3 +9,7 @@
 4. used createElement
 
 5. used appendChild
+
+6. used .style property
+
+7. added an event listener
