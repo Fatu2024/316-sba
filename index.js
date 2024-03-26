@@ -1,44 +1,120 @@
-// 1. Cache at least one element using selectElementById.
-const firstName = document.getElementById('firstName');
-console.log(firstName);
+// Cache form elements
+const form = document.querySelector('form');
+const firstNameInput = document.getElementById('firstName');
+const lastNameInput = document.getElementById('lastName');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const confirmPasswordInput = document.getElementById('confirmation');
 
-// firstName.setAttribute('placeholder', 'Enter your first name');
-
-// 2. Cache at least one element using querySelector or querySelectorAll.
+// Cache register button
 const registerButton = document.querySelector('.btn');
-console.log(registerButton);
-registerButton.style.backgroundColor = 'green';
+
+// Display error message for invalid input
+function displayErrorMessage(inputElement, message) {
+    const errorElement = document.createElement('p');
+    errorElement.classList.add('error-message');
+    errorElement.textContent = message;
+
+    const parentElement = inputElement.parentElement;
+    parentElement.appendChild(errorElement);
 
 
-//3. Use the parent-child-sibling relationship to navigate between elements at least once (firstChild, lastChild, parentNode, nextElementSibling, etc.).
-const registrarButton = document.querySelector('.container').lastElementChild;
-console.log('last item', registrarButton);
-
-//*4. Iterate over a collection of elements to accomplish some task.
-const formInputs = document.querySelectorAll('.container input');
-formInputs.forEach(input => {
-    console.log(input.value)
-})
-
-//5. Create at least one element using createElement.
-const step1 = document.createElement('step1');
-step1.innerText = 'One step closer to a healthier life!'
-// step1.style.textAlign = 'center';
-
-// 6. Use appendChild and/or prepend to add new elements to the DOM.
-const parentElement = document.querySelector('.container');
-parentElement.appendChild(step1);
-
-//7. Modify at least one attribute of an element in response to user interaction.
-const button = document.querySelector('.btn');
-
-function handleClick(evt) {
-    // console.log(evt);
-    // evt.preventDefault()
-    alert(`Thanks for registering!`);
+    setTimeout(() => {
+        errorElement.remove();
+    }, 3000);
 }
 
-button.addEventListener('click', handleClick);
+// Validate first name
+function validateFirstName(value) {
+    if (value && typeof value === 'string') {
+        return value.trim() !== '';
+    }
+    return false;
+}
 
-//8. Register at least two different event listeners and create the associated event handler functions.
+// Validate last name
+// Validate last name
+function validateLastName(value) {
+    if (value && typeof value === 'string') {
+        return value.trim() !== '';
+    }
+    return false;
+}
 
+// Validate email
+function validateEmail(value) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (value && typeof value === 'string') {
+        return emailRegex.test(value);
+    }
+    return false;
+}
+
+// Validate password
+function validatePassword(value) {
+    if (value && typeof value === 'string') {
+        return value.length >= 8;
+    }
+    return false;
+}
+
+// Handle form submission
+form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    // Validate form inputs
+    if (!validateFirstName(firstNameInput.value)) {
+        displayErrorMessage(firstNameInput, 'Please enter a valid first name.');
+        return;
+    }
+
+    if (!validateLastName(lastNameInput.value)) {
+        displayErrorMessage(lastNameInput, 'Please enter a valid last name.');
+        return;
+    }
+
+    if (!validateEmail(emailInput.value)) {
+        displayErrorMessage(emailInput, 'Please enter a valid email address.');
+        return;
+    }
+
+    if (!validatePassword(passwordInput.value)) {
+        displayErrorMessage(passwordInput, 'Password must be at least 8 characters long.');
+        return;
+    }
+
+    if (passwordInput.value !== confirmPasswordInput.value) {
+        displayErrorMessage(confirmPasswordInput, 'Passwords do not match.');
+        return;
+    }
+
+    if (allInputsValidated()) {
+        console.log('Register button clicked.');
+        alert('Registration successful!');
+        form.submit();
+    } else {
+        console.log('Register button click - form validation failed.');
+    }
+});
+
+// Event listener for register button click
+registerButton.addEventListener('click', function () {
+    console.log('Register button clicked!');
+});
+function allInputsValidated() {
+    return (
+        validateFirstName(firstNameInput.value) &&
+        validateLastName(lastNameInput.value) &&
+        validateEmail(emailInput.value) &&
+        validatePassword(passwordInput.value) &&
+        passwordInput.value === confirmPasswordInput.value
+    );
+}
+
+// Register button click event
+registerButton.addEventListener('click', function () {
+    if (allInputsValidated()) {
+        alert('Registration successful!');
+        form.submit();
+    }
+});
